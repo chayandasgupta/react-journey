@@ -76,7 +76,51 @@ const PreventAlwaysRerenderComponent = () => {
 
 ---
 
-## Summary
+# useMemo in React
 
-- Use `useCallback` with `React.memo` to prevent unnecessary child re-renders when passing callbacks as props.
-- Only optimize if you notice performance issues or unnecessary renders in your app.
+## What is useMemo?
+
+`useMemo` is a React hook that memoizes the result of an expensive calculation, so it only recalculates when its dependencies change. This prevents unnecessary recalculations and improves performance, especially for heavy computations.
+
+---
+
+## Key Difference: Without vs With useMemo
+
+Suppose you have this expensive calculation in your component:
+
+```jsx
+const factorial = calculateFactorial(number); // Runs on every render
+```
+
+**With useMemo:**
+
+```jsx
+const factorial = useMemo(() => calculateFactorial(number), [number]); // Only recalculates when 'number' changes
+```
+
+### How it works
+
+- **Without useMemo:** The calculation runs every time the component re-renders, even if the input (`number`) hasn't changed. This can slow down your app if the calculation is expensive.
+- **With useMemo:** The calculation only runs when the dependency (`number`) changes. On other renders, React reuses the previously memoized result, saving computation time.
+
+### When to use
+
+- Use `useMemo` when you have an expensive calculation that does not need to run on every render, but only when certain values change.
+- Avoid overusing `useMemo` for simple or fast calculations, as it adds complexity.
+
+---
+
+## Example Difference
+
+```jsx
+// Without useMemo (runs every render)
+const factorial = calculateFactorial(number);
+
+// With useMemo (runs only when 'number' changes)
+const factorial = useMemo(() => calculateFactorial(number), [number]);
+```
+
+**Summary:**
+
+- `useMemo` helps prevent unnecessary recalculations and improves performance for expensive operations.
+- Only the use of `useMemo` and its dependency array makes the difference in performance.

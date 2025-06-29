@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import AlwaysRerenderComponent from './topics/hooks/useCallback/01-AlwaysRerenderComponent';
+import CachedExpensiveCalculation from './topics/hooks/useMemo/02-CachedExpensiveCalculation'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -14,7 +14,7 @@ function App() {
       </div>
       
       {/* Adding ExpensiveCalculation Component */}
-      <AlwaysRerenderComponent />
+      <CachedExpensiveCalculation />
 
     </>
   )
