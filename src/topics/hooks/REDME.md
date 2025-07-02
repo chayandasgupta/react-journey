@@ -124,3 +124,60 @@ const factorial = useMemo(() => calculateFactorial(number), [number]);
 
 - `useMemo` helps prevent unnecessary recalculations and improves performance for expensive operations.
 - Only the use of `useMemo` and its dependency array makes the difference in performance.
+
+---
+
+# useReducer in React
+
+## What is useReducer?
+
+`useReducer` is a React hook for managing complex state logic in functional components. It is an alternative to `useState` and is especially useful when state depends on previous state or when you have multiple related state values.
+
+## How does it work?
+
+- You provide a **reducer function** and an **initial state** to `useReducer`.
+- The reducer function receives the current state and an action, and returns the new state.
+- You use a `dispatch` function to send actions to the reducer.
+
+## Which JS formula does it use?
+
+- `useReducer` is based on the **reducer pattern** from JavaScript, commonly used with `Array.prototype.reduce`.
+- The reducer function has the signature:
+  ```js
+  (state, action) => newState;
+  ```
+- This is the same pattern used in Redux and other state management libraries.
+
+## Example
+
+```jsx
+import React, { useReducer } from "react";
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "increment":
+      return { count: state.count + 1 };
+    case "decrement":
+      return { count: state.count - 1 };
+    default:
+      throw new Error();
+  }
+}
+
+function Counter() {
+  const [state, dispatch] = useReducer(reducer, { count: 0 });
+  return (
+    <>
+      Count: {state.count}
+      <button onClick={() => dispatch({ type: "increment" })}>+</button>
+      <button onClick={() => dispatch({ type: "decrement" })}>-</button>
+    </>
+  );
+}
+```
+
+## Summary
+
+- `useReducer` is ideal for complex state logic and state transitions.
+- It uses the reducer pattern: `(state, action) => newState`.
+- You dispatch actions to update state, making logic predictable and testable.

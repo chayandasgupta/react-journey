@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import './App.css'
-import UseRefExample from './topics/hooks/useRef/01.UseRefDemo'
+import TodoApp from './topics/hooks/useReducer/01.ReducerDemo'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -14,7 +14,7 @@ function App() {
       </div>
       
       {/* Adding ExpensiveCalculation Component */}
-      <UseRefExample />
+      <TodoApp />
 
     </>
   )
