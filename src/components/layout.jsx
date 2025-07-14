@@ -1,23 +1,27 @@
 import { Outlet } from "react-router-dom";
-import Sidebar from "../sidebar";
+import Navbar from "./Navbar";
 
-export default function DashboardLayout() {
+export default function Layout() {
   return (
     <div
       style={{
         display: "flex",
+        flexDirection: "column",
         minHeight: "100vh",
         backgroundColor: "#f9fafb", // soft light background
         fontFamily: "Segoe UI, Roboto, sans-serif",
       }}
     >
-      <Sidebar />
+      <Navbar />
+
       <main
         style={{
           flex: 1,
           padding: "24px",
-          backgroundColor: "#f9fafb", // matches soft layout background
-          overflowY: "auto",
+          maxWidth: "1200px",
+          width: "100%",
+          margin: "0 auto",
+          boxSizing: "border-box",
           color: "black"
         }}
       >
