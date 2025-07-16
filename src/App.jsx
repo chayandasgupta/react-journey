@@ -1,23 +1,17 @@
-import { useState } from 'react'
-import './App.css'
-import TodoApp from './topics/hooks/useReducer/01.ReducerDemo'
-
+import "./App.css";
+import Counter from "./topics/hooks/useReducer/02.SimpleCounter";
+import TodoApp from "./topics/hooks/useReducer/01.TodoList";
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
-      
       {/* Adding ExpensiveCalculation Component */}
-      <TodoApp />
+      <Counter />
 
+      <hr />
+
+      <TodoApp />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
