@@ -1,6 +1,8 @@
 import "./App.css";
-import Counter from "./topics/hooks/useReducer/02.SimpleCounter";
 import TodoApp from "./topics/hooks/useReducer/01.TodoList";
+import Counter from "./topics/hooks/useReducer/02.SimpleCounter";
+import FormStateManager from "./topics/hooks/useReducer/03.FormStateManager";
+
 function App() {
   return (
     <>
@@ -10,6 +12,10 @@ function App() {
       <hr />
 
       <TodoApp />
+
+      <hr />
+
+      <FormStateManager />
     </>
   );
 }
