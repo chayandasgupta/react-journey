@@ -81,6 +81,7 @@ const FormStateManager = () => {
             type="text"
             id="name"
             name="name"
+            value={state.name}
             onChange={handleInputChange}
           />
         </div>
@@ -93,6 +94,7 @@ const FormStateManager = () => {
             type="email"
             id="email"
             name="email"
+            value={state.email}
             onChange={handleInputChange}
           />
         </div>
@@ -105,6 +107,7 @@ const FormStateManager = () => {
             type="password"
             id="password"
             name="password"
+            value={state.password}
             onChange={handleInputChange}
           />
         </div>
