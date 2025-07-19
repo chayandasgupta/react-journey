@@ -26,6 +26,7 @@ const initialState = {
 
 const ACTIONS = {
   UPDATE_FIELD: "update-field",
+  UPDATE_NESTED_FIELD: "update-nested-field",
   TOGGLE_CHECKBOX: "toggle-checkbox",
   SUBMIT_FORM: "submit-form",
   SET_ERROR: "set-error",
@@ -37,6 +38,7 @@ const ACTIONS = {
 };
 
 const formReducer = (state, action) => {
+  console.log("Action dispatched:", action);
   switch (action.type) {
     case ACTIONS.UPDATE_FIELD:
       return {
@@ -46,6 +48,19 @@ const formReducer = (state, action) => {
           ...action.payload,
         },
       };
+
+    case ACTIONS.UPDATE_NESTED_FIELD:
+      return {
+        ...state,
+        formData:{
+          ...state.formData,
+          [action.payload.section]:{
+            ...state.formData[action.payload.section],
+            ...action.payload.data,
+          }
+        }
+      };
+
     case ACTIONS.TOGGLE_CHECKBOX:
       return {
         ...state,
@@ -104,24 +119,29 @@ const validateForm = (formData) => {
 
 const RegistrationFormManage = () => {
   const [state, dispatch] = useReducer(formReducer, initialState);
-
+  console.log("Current state:", state);
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === "country" || name === "city" || name === "zipCode") {
+    if (["country", "city", "zipCode"].includes(name)) {
       dispatch({
-        type: ACTIONS.UPDATE_FIELD,
+        type: ACTIONS.UPDATE_NESTED_FIELD,
         payload: {
-          address: {
-            ...state.formData.address,
-            [name]: value,
-          },
+          section: "address",
+          data: { [name]: value },
         },
       });
+    } else if (name === "contactMethod") {
+      dispatch({
+        type: ACTIONS.UPDATE_NESTED_FIELD,
+        payload: {
+          section: "preference",
+          data: { [name]: value },
+        },
+      })
     } else if (
       name === "skills" ||
-      name === "newsletter" ||
-      name === "contactMethod"
+      name === "newsletter"
     ) {
       const skills = state.formData.preference.skills.includes(value)
         ? state.formData.preference.skills.filter((skill) => skill !== value)
@@ -132,11 +152,6 @@ const RegistrationFormManage = () => {
           ? !state.formData.preference.newsletter
           : state.formData.preference.newsletter;
 
-      const contactMethod =
-        name === "contactMethod"
-          ? value
-          : state.formData.preference.contactMethod;
-
       dispatch({
         type: ACTIONS.UPDATE_FIELD,
         payload: {
@@ -144,7 +159,6 @@ const RegistrationFormManage = () => {
             ...state.formData.preference,
             skills,
             newsletter,
-            contactMethod,
           },
         },
       });
